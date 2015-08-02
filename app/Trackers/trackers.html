@@ -1,0 +1,56 @@
+<div class="col-xs-2 padding-off margin-off lab-column hairline-left">
+
+	<div class="list-group list-group-naked list-group-sm list-group-full-scroll">
+		<div class="list-group-item list-group-item-divider">Trackers</div>
+		<a class="list-group-item " ng-repeat="tracker in trackers" ng-click="when='do'" ng-class="{ 'active' : tracker == selectedTracker }" ng-href="/#/trackers/{{tracker._id}}">
+			<i class="{{tracker.icon}} icon" style="color:{{tracker.color}}"></i>
+			<span>{{tracker.label}}</span>
+		</a>
+	</div>
+</div>
+<div class="col-xs-10 bg-info lab-column">
+	<div class="page-content margin-md-top">
+		<div class="page-content-header padding-md hairline-bottom">
+			<div class="btn-group pull-right margin-off-top">
+				<button type="button" class="btn btn-sm btn-default active" aria-label="Left Align">Grid</button>
+				<button type="button" class="btn btn-sm btn-default" aria-label="Left Align">Map</button>
+			</div>
+			<h1 class="title"><i class="{{selectedTracker.icon}}" style="color:{{selectedTracker.color}}"></i> {{selectedTracker.label}}</h1>
+		</div>
+		<div class="page-content-body padding-off has-header">
+
+			<div class="col-xs-9 padding-off margin-off">
+				<table class="table table-striped hairline-right">
+					<thead class="bg-primary">
+						<tr>
+							<th ng-click="orderBy = 'year'; desc = !desc">Year</th>
+							<th ng-click="orderBy = 'month'; desc = !desc">Month</th>
+							<th ng-click="orderBy = 'day'; desc = !desc">Day</th>
+							<th ng-click="orderBy = 'dayName'; desc = !desc">Day Name</th>
+							<th ng-click="orderBy = 'time'; desc = !desc">Time</th>
+							<th ng-click="orderBy = 'latitude'; desc = !desc">Lat</th>
+							<th ng-click="orderBy = 'longitude'; desc = !desc">Long</th>
+						</tr>
+					</thead>
+					<tr ng-repeat="event in events | orderBy : orderBy : desc">
+						<td>{{event.year}}</td>
+						<td>{{event.month}}</td>
+						<td>{{event.day}}</td>
+						<td>{{event.dayName}}</td>
+						<td>{{event.time}}</td>
+						<td>{{event.latitude}}</td>
+						<td>{{event.longitude}}</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="col-xs-3 padding-md">
+				Hi there
+			</div>
+
+			<!-- end row -->
+		</div>
+		<!-- end page-content-body -->
+	</div>
+	<!-- end page-content -->
+</div>

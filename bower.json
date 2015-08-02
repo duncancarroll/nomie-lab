@@ -1,0 +1,26 @@
+{
+  "name": "nomie-lab",
+  "version": "0.0.0",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.3",
+    "bootstrap": "~3.3.5",
+    "bootstrap-spacing": "https://github.com/brandoncorbin/bootstrap-spacing.git",
+    "angular-bootstrap": "~0.13.1",
+    "angular-route": "~1.4.3",
+    "bootstrap-sass": "~3.3.5",
+    "pouchdb": "~3.6.0",
+    "momentjs": "~2.10.6",
+    "angular-moment": "~0.10.2",
+    "c3": "~0.4.10",
+    "c3-angular": "~0.6.0",
+    "JsonQuery": "https://github.com/jiren/JsonQuery.git"
+  }
+}

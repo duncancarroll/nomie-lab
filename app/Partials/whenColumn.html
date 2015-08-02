@@ -1,0 +1,9 @@
+<div class="col-xs-2 padding-off margin-off hairline-left lab-column" ng-show="what!=null">
+	<div class="list-group list-group-naked list-group-sm">
+		<div class="list-group-item list-group-item-divider">When</div>
+		<a class="list-group-item " ng-click="when='do'" ng-class="{ 'active' : when == 'do', disabled : what == null }">I Do</a>
+		<a class="list-group-item " ng-click="when='dont'" ng-class="{ 'active' : when == 'dont', disabled : what == null }">I Don't Do</a>
+		<a class="list-group-item " ng-click="when='location'" ng-hide="what == 'locations'" ng-class="{ 'active' : when == 'location', disabled : what == null }">I'm Near</a>
+		<a class="list-group-item " ng-click="when='days'" ng-hide="what == 'dates'" ng-class="{ 'active' : when == 'days', disabled : what == null }">On Days</a>
+	</div>
+</div>

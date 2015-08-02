@@ -1,0 +1,34 @@
+{
+  "name": "nomie-lab",
+  "version": "0.0.1",
+  "description": "A tool for interacting with Nomie data",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/happydata/nomie-lab.git"
+  },
+  "keywords": [
+    "quantified",
+    "self",
+    "nomie",
+    "life",
+    "tracking",
+    "gyst"
+  ],
+  "author": "Brandon Corbin <brandon@happydata.org>",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/happydata/nomie-lab/issues"
+  },
+  "homepage": "https://github.com/happydata/nomie-lab#readme",
+  "devDependencies": {
+    "browser-sync": "^2.8.2",
+    "gulp": "^3.9.0"
+  },
+  "dependencies": {
+    "gulp-sass": "^2.0.4"
+  }
+}

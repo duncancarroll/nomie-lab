@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.4/jasmine.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.4/jasmine-html.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.4/boot.min.js"></script>
+
+
+
+	<link rel="shortcut icon" type="image/png" href="jasmine/lib/jasmine-2.0.0/jasmine_favicon.png">
+	<link rel="stylesheet" type="text/css" href="jasmine/lib/jasmine-2.0.0/jasmine.css">
+
+
+	<script src="/lib/pouchdb/dist/pouchdb.min.js"></script>
+	<script src="/lib/moment/min/moment.min.js"></script>
+	<script src="nomie-event.js"></script>
+	<script src="/nomie-lib/tracker-analyzer/tracker-analyzer.js"></script>
+	<script src="/nomie-lib/calendar-map/calendar-map.js"></script>
+	<script type="text/javascript" combine="true" src="/lib/jstat/dist/jstat.min.js"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.4/jasmine.min.css" />
+
+</head>
+<body>
+
+
+	<script>
+
+			var tick = new NomieEvent();
+			var eventFactory = new NomieEventFactory();
+
+			var trackerAnalyzer = new TrackerAnalyzer({
+				tracker : '1421121889252-0nhi',
+				db : NomieEventDB
+			}).init(function(err, data) {
+				console.log("Tracker Anal INIT");
+				console.log('Averages',trackerAnalyzer.getAverages());
+			});
+
+			// tick.setType('tick');
+			// tick.setCharge(-1);
+			// tick.setParent('tracker123456');
+			// tick.setTime(new Date().getTime());
+
+			// tick.save(function(err, data) {
+			// 	console.log("Tick Saved!", err, data);
+			// });
+
+			var filter = eventFactory.
+										filter().
+										// byTracker('123peed').
+										startAt(moment().subtract(3,'months').toDate().getTime()).
+										endAt(new Date().getTime()).
+										includeDocs(true).
+										//byTag('#family').
+										//limit(100).
+										descending(false).
+										getTicks(function(err, data) {
+
+											console.log("Filter GO CALLED", err, data)
+
+										});
+
+
+			var db = new PouchDB('ticks_old', {
+				auto_compaction:true
+			});
+
+			// var remote = new PouchDB('https://brandon:gut666123456@sync.nomie.io/brandon_ticks');
+			//
+			// db.replicate.from(remote).on('change', function(change) {
+			//   console.log("Changes Happening", change);
+			// }).on('complete', function() {
+			//   console.log("Replicated Up To Date");
+			//   //  startBuild();
+			// }).on('error', function(err) {
+			//   console.log(err, "ERROR HAS OCCURED");
+			// });
+
+			//var db = new EventDB();
+
+			// var bulkPut = [];
+			//
+			// db.allDocs({
+			// 	include_docs : true
+			// }).then(function(results) {
+			// 	console.log("GOT THE RESULTS", results);
+			//
+			// 	for(var i in results.rows) {
+			// 		var doc = results.rows[i].doc;
+			// 		var obj;
+			// 		//console.log(doc.note);
+			// 		if(doc.type === 'note') {
+			// 			obj = eventFactory.new.note();
+			// 			obj.setValue(doc.note);
+			// 			obj.setParent(doc.tags);
+			// 		} else {
+			// 			obj = eventFactory.new.tick();
+			// 			obj.setParent(doc.tracker);
+			// 		}
+			// 		obj.setTime(doc.time);
+			// 		obj.setCharge(doc.charge);
+			// 		obj.setGeo(doc.geo);
+			// 		eventFactory.add(obj);
+			//
+			// 		if(doc.type === 'note') {
+			// 		//	console.log("Its a note new object has", obj.getValue());
+			// 		}
+			//
+			// 	//	console.log(obj.getPut());
+			//
+			// 	} // end for loop over rows
+			//
+			// 	// console.log("#### FINAL BULK DOC PUT #####", eventFactory.getBulkPut());
+			//
+			// 	var db = new EventDB();
+			// 	db.bulkDocs(eventFactory.getBulkPut(), function(err, data) {
+			// 			console.log("Bulk Put Callback", err, data);
+			// 	});
+			//
+			//
+			//
+			// }).catch(function(err) {
+			// 		console.log("ERROR GETTING TICKS", err);
+			// });
+
+			// tick.open('tick/tm/1433211637911/tracker123456/-1', function(err, data) {
+			// 	console.log('Tick Open', err, tick.getData());
+			// 	tick.remove(function(err, data) {
+			// 		console.log("Tick Removed", err, data);
+			// 	});
+			// });
+
+			var tick = eventFactory.new.tick();
+			tick.setParent('tracker123456');
+			tick.setCharge(-1);
+
+
+			console.log(tick.getId('time'));
+
+
+			describe("Tick IDs", function() {
+				it("setParent('tracker123456') should make getParent return the same id", function() {
+					expect(tick.getParent()).toBe('tracker123456');
+				});
+
+				var timeId = tick.getId('time');
+				var dayId = tick.getId('day');
+				var parentId = tick.getId('parent');
+
+				it("expets getId('time') to return a time id: "+timeId, function() {
+					expect(timeId.search('/tm/')).toBe(4)
+				});
+				it("expets getId('day') to return a day id: "+dayId, function() {
+					expect(dayId.search('/dy/')).toBe(4)
+				});
+				it("expets getId('parent') to return a parent id: "+parentId, function() {
+					expect(parentId.search('/pr/')).toBe(4);
+				});
+
+
+
+			});
+
+
+			var note = new NomieNote();
+			var noteContent = 'This is a note from my beloved Blowhard';
+			note.setCharge(-1);
+			note.setParent(['hat','mat']);
+			note.setTime(new Date().getTime());
+			note.setValue('This is a note from my beloved Blowhard');
+
+			// note.save(function(err, data) {
+			// 	console.log("Note Save Called", err, data);
+			// });
+
+			var anotherNote = new NomieNote();
+			anotherNote.open('note/tm/1433209400642/hat,mat/-1', function(err, data) {
+			//	console.log('Open a note', err, data);
+			});
+
+			//console.log('Get Put', note.getPut());
+			//console.log('Decode ID', note.getId('time'), note.decodeId(note.getId('time')));
+
+
+			describe("Creating a Note", function() {
+				it("setParent(['goat','boat']) should make getParent return ", function() {
+					expect(true).toBe(true);
+				});
+
+				var timeId = note.getId('time');
+				var dayId = note.getId('day');
+				var parentId = note.getId('parent');
+				it("Note Expects getId('time') to return a time id: "+timeId, function() {
+					expect(timeId.search('/tm/')).toBe(4)
+				});
+				it("Note Expects getId('day') to return a day id: "+dayId, function() {
+					expect(dayId.search('/dy/')).toBe(4)
+				});
+				it("Note Expects getId('parent') to return a parent id: "+parentId, function() {
+					expect(parentId.search('/pr/')).toBe(4);
+				});
+				it("Note Expects getValue() to return a parent id: "+note.getValue(), function() {
+					expect(note.getValue()).toBe(noteContent);
+				});
+
+			});
+
+
+			describe("Event Factory", function() {
+				it("event.new.note() should get a Note Object ", function() {
+					var note = eventFactory.new.note();
+					expect(note.getType()).toBe('note');
+				});
+				it("event.new.tick() should get a Tick Object ", function() {
+					var tick = eventFactory.new.tick();
+					expect(tick.getType()).toBe('tick');
+				});
+				it("eventFactory should return the number of events added to it", function() {
+					var efactory = new NomieEventFactory();
+					var note = efactory.new.note();
+					note.setValue('Hi there');
+					efactory.add(note);
+					expect(efactory.getEvents().length).toBe(1);
+				})
+			});
+
+
+			describe("Event Objects", function() {
+
+				it('expects setTime to set the damn time', function() {
+					var obj = eventFactory.new.tick();
+					var date = moment().add(4,'months').toDate().getTime();
+					obj.setTime(date);
+					expect(obj.getTime()).toBe(date);
+				});
+
+
+			});
+
+
+
+
+	</script>
+
+</body>
+</html>

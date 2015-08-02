@@ -1,0 +1,22 @@
+{
+  "name": "nomie-event",
+  "version": "0.0.1",
+  "description": "Event For Nomie",
+  "main": "nomie-event.js",
+  "authors": [
+    "Brandon Corbin <brandon@happydata.org>"
+  ],
+  "license": "NONE",
+  "homepage": "http://getnomie.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "momentjs": "~2.10.3",
+    "pouchdb": "~3.6.0"
+  }
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="nomieLab" data-ng-init="root.init()">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Nomie Lab</title>
+	<script src="./bower_components/angular/angular.js" charset="utf-8"></script>
+	<script src="./bower_components/angular-route/angular-route.js" charset="utf-8"></script>
+	<script src="./bower_components/PouchDB/dist/pouchdb.js"></script>
+	<script src="./bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+	<script src="./bower_components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
+	<script src="./bower_components/angular-bootstrap/ui-bootstrap.min.js" charset="utf-8"></script>
+	<script src="./bower_components/momentjs/min/moment.min.js"></script>
+	<script src="./bower_components/angular-moment/angular-moment.js"></script>
+
+	<script src="./bower_components/d3/d3.min.js" charset="utf-8"></script>
+	<script src="./bower_components/c3/c3.js" charset="utf-8"></script>
+	<script src="./bower_components/c3-angular/c3-angular.min.js" charset="utf-8"></script>
+	<script src="./bower_components/c3-angular/c3js-directive.js" charset="utf-8"></script>
+	<script src="./bower_components/JsonQuery/dist/json_query.min.js" charset="utf-8"></script>
+	<!-- Services -->
+	<script src="./app/Libs/nomie-event/nomie-event.js"></script>
+	<script src="./app/app.js"></script>
+	<script src="./app/Services/CouchService.js"></script>
+	<!-- Home -->
+	<script src="./app/Home/HomeController.js"></script>
+	<script src="./app/Notes/NotesController.js"></script>
+	<script src="./app/Trackers/TrackersController.js"></script>
+
+
+
+
+	<link rel="stylesheet" href="./bower_components/c3/c3.min.css">
+	<link rel="stylesheet" href="./app/css/nomie-lab.css">
+
+	<link rel="stylesheet" href="http://cdn.nomie.io.s3.amazonaws.com/icons/nomie.icons.css">
+
+	<!-- NOTES
+	Yes, you will see a few inline styles. Get used to it.
+	Outlier styles should not be added to your css files until it becomes a repeatable pattern.
+
+	This helps because:
+	1. HTML is now presentation, not some bastardized version of XML - it's no longer 1999, move on.
+	2. Keeps your initial CSS file clean
+	3. Makes it easy to see the outliers in Inspect mode.
+
+	BUT - you should only do it sparingly. Mainly you should use everything Bootstrap CSS has to offer and
+	and limit yourself to writing custom CSS at all.
+	-->
+
+
+
+</head>
+
+<body>
+	<!-- HEADER AND NAVBAR -->
+	<header class="">
+		<nav class="margin margin-off-bottom navbar navbar-fixed-top navbar-inverse">
+			<div class="">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">
+						Nomie Lab
+					</a>
+					<ul class="nav navbar-nav">
+						<li ng-class="{ active : $root.what == 'overview' }" class=""><a class="" ng-click="what='overview'" ng-href="/#/overview">Overview</a></li>
+						<li ng-class="{ active : $root.what == 'trackers' }" class=""><a class="" ng-click="what='trackers'" ng-href="/#/trackers">Trackers</a></li>
+						<li ng-class="{ active : $root.what == 'notes' }" class=""><a class="" ng-click="what='notes'" ng-href="/#/notes">Notes</a></li>
+						<li ng-class="{ active : $root.what == 'events' }" class="disabled"><a class="" ng-click="what='events'">Events</a></li>
+						<li ng-class="{ active : $root.what == 'locations' }" class="disabled"><a class="" ng-click="what='locations'">Locations</a></li>
+						<li ng-class="{ active : $root.what == 'dates' }" class="disabled"><a class="" ng-click="what='dates'">Dates</a> </li>
+					</ul>
+				</div>
+
+				<ul class="nav navbar-nav pull-right margin-md-right">
+					<li class="active"><a href ng-click="$root.logout()" ng-show="$root.server.urlData.host" style="">{{$root.server.auth.username}}<span style="opacity:0.5">@</span>{{$root.server.urlData.host}} <strong>Logout</strong></a></li>
+				</ul>
+
+			</div>
+
+		</nav>
+	</header>
+
+	<!-- MAIN CONTENT AND INJECTED VIEWS -->
+	<div id="main">
+
+		<!-- 		<div class="col-xs-2 col-lg-1 col-xl-1 padding-off margin-off lab-column" style="height:{{$root.appHeight}}px;">
+		<div class="list-group list-group-naked list-group-sm">
+			<div class="list-group-item list-group-item-divider">What</div>
+
+		</div>
+	</div> -->
+
+
+
+		<div ng-view></div>
+
+
+	</div>
+
+</body>
+
+</html>

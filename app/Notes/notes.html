@@ -1,0 +1,30 @@
+
+<div class="col-xs-10 bg-info lab-column hairline-left">
+	<div class="page-content margin-md-top">
+		<div class="page-content-header padding-md hairline-bottom">
+			<h1 class="title">Your Nomie Notes</h1>
+		</div>
+		<div class="page-content-body has-header padding-off">
+			<div class="timeline-centered" ng-repeat="note in notes | filter : notesFilter">
+        <article class="timeline-entry">
+            <div class="timeline-entry-inner">
+                <div class="timeline-icon " ng-class="{ 'bg-success' : note.charge > 0, 'bg-info' : note.charge === 0, 'bg-danger' : note.charge < 0 }">
+                    <i class="entypo-feather"></i>
+                </div>
+                <div class="timeline-label">
+                    <h2>{{note.time | amDateFormat:'ddd, MMM Do YYYY'}} <span am-time-ago="note.time"></span></h2>
+                    <p class="texter md light">{{note.value}}</p>
+                </div>
+            </div>
+        </article>
+			</div>
+		</div> <!-- end page-content-body -->
+	</div> <!-- end page-content -->
+</div>
+<div class="col-xs-2 padding-off margin-off bg-primary hairline-left lab-column">
+	<div class="list-group list-group-naked list-group-sm list-group-inset margin-sm hairline-all">
+		<a class="list-group-item " ng-click="setFilter('all')" ng-class="{ 'active' : filter == 'all' || filter == null}">All</a>
+		<a class="list-group-item " ng-click="setFilter('positive');" ng-class="{ 'active' : filter == 'positive'}">Positive</a>
+		<a class="list-group-item " ng-click="setFilter('negative');" ng-class="{ 'active' : filter == 'negative'}">Negative</a>
+	</div>
+</div>
