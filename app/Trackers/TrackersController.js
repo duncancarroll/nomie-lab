@@ -23,9 +23,35 @@ angular.module('nomieTrackersController', []).controller('TrackersController', [
 ]).controller('TrackerAnalyzerController', ['$scope', '$rootScope', 'CouchService', '$timeout', '$routeParams',
 	function ($scope, $rootScope, CouchService, $timeout, $routeParams) {
 
+
 		$scope.trackerId = $routeParams.trackerId;
 		$scope.vm = {};
 		$rootScope.what = 'trackers';
+
+
+		angular.extend($scope, {
+        layers: {
+            baselayers: {
+                osm: {
+                    name: 'OpenStreetMap',
+                    type: 'xyz',
+                    url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    layerOptions: {
+                        subdomains: ['a', 'b', 'c'],
+                        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                        continuousWorld: true
+                    }
+                }
+            }
+
+        },
+        center: {
+            lat: 38.505,
+            lng: -77.09,
+            zoom: 15
+        },
+        markers: []
+    });
 
 		$scope.init = function () {
 			$timeout(function () {
@@ -35,9 +61,32 @@ angular.module('nomieTrackersController', []).controller('TrackersController', [
 				$scope.events = qEvents.where({
 					'parent': $routeParams.trackerId
 				}).exec();
+
+				for(var i in $scope.events) {
+					if($scope.events[i].latitude+''.length>0) {
+						$scope.markers.push({
+								lat: $scope.events[i].latitude,
+								lng: $scope.events[i].longitude,
+								message: '<strong>'+$scope.events[i].dayName+'</strong>',
+								focus: true,
+								draggable: false
+						});
+					}
+				}
+				$scope.center = {
+					lat : $scope.events[$scope.events.length-1].latitude,
+					lng : $scope.events[$scope.events.length-1].longitude,
+					center : 8
+				};
+
+				console.log("#### SCOPE.markers" , $scope.markers);
+
+
 				console.log("### TRACKER ANALYZER", $scope.events);
 			}, 120);
 		};
+
+
 
 		$scope.$on('data-overview-loaded', function (evt, data) {
 			$scope.init();
@@ -46,6 +95,13 @@ angular.module('nomieTrackersController', []).controller('TrackersController', [
 		if (CouchService.notesData.length > 0) {
 			$scope.init();
 		}
+
+		$scope.showOnMap = function(event) {
+			$timeout(function() {
+
+
+			},300);
+		};
 
 		/*****************************************************
 		 * Generate a Graph of Some Sort

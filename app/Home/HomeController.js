@@ -96,7 +96,7 @@ nomieLab.controller('HomeController', ['$scope', '$rootScope', 'CouchService', '
 			}
 		}, 300);
 
-		$scope.$on('connection-needed', function (event, data) {
+		$rootScope.$on('connection-needed', function (event, data) {
 			console.log("Connection Needed");
 			jQuery('#connectModal').modal();
 		});

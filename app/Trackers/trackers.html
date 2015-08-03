@@ -20,32 +20,33 @@
 		<div class="page-content-body padding-off has-header">
 
 			<div class="col-xs-9 padding-off margin-off">
-				<table class="table table-striped hairline-right">
-					<thead class="bg-primary">
-						<tr>
-							<th ng-click="orderBy = 'year'; desc = !desc">Year</th>
-							<th ng-click="orderBy = 'month'; desc = !desc">Month</th>
-							<th ng-click="orderBy = 'day'; desc = !desc">Day</th>
-							<th ng-click="orderBy = 'dayName'; desc = !desc">Day Name</th>
-							<th ng-click="orderBy = 'time'; desc = !desc">Time</th>
-							<th ng-click="orderBy = 'latitude'; desc = !desc">Lat</th>
-							<th ng-click="orderBy = 'longitude'; desc = !desc">Long</th>
-						</tr>
-					</thead>
-					<tr ng-repeat="event in events | orderBy : orderBy : desc">
-						<td>{{event.year}}</td>
-						<td>{{event.month}}</td>
-						<td>{{event.day}}</td>
-						<td>{{event.dayName}}</td>
-						<td>{{event.time}}</td>
-						<td>{{event.latitude}}</td>
-						<td>{{event.longitude}}</td>
-					</tr>
-				</table>
+				<leaflet width="100%" height="600" layers="layers" markers="markers" center="center"></leaflet>
+
+
 			</div>
 
-			<div class="col-xs-3 padding-md">
-				Hi there
+			<div class="col-xs-3 padding-off">
+				<table class="table table-striped hairline-right table-condensed table-hover">
+					<thead class="bg-primary">
+						<tr>
+							<!-- <th ng-click="orderBy = 'year'; desc = !desc">Year</th>
+							<th ng-click="orderBy = 'month'; desc = !desc">Month</th>
+							<th ng-click="orderBy = 'day'; desc = !desc">Day</th> -->
+							<!-- <th ng-click="orderBy = 'dayName'; desc = !desc">Day Name</th> -->
+							<th ng-click="orderBy = 'time'; desc = !desc">Time</th>
+							<th ng-click="orderBy = 'latitude'; desc = !desc">Lat Long</th>
+						</tr>
+					</thead>
+					<tr ng-repeat="event in events | orderBy : orderBy : desc"
+						ng-click="showOnMap(event)">
+						<!-- <td>{{event.year}}</td>
+						<td>{{event.month}}</td>
+						<td>{{event.day}}</td>
+						<td>{{event.dayName}}</td> -->
+						<td>{{event.time | amDateFormat:'ddd, MMM Do YYYY'}}</td>
+						<td>{{event.latitude}}<br />{{event.longitude}}</td>
+					</tr>
+				</table>
 			</div>
 
 			<!-- end row -->

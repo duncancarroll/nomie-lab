@@ -362,7 +362,8 @@ nomieLab.service('CouchService',
 						ss.eventFactory = new NomieEventFactory(ss.events);
 
 						trackersDB.allDocs({
-							include_docs : true
+							include_docs : true,
+							limit : 200
 						}).then(function(results) {
 							//console.log("Tracker DB rlookup", results);
 							ss.trackersData = {};

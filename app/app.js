@@ -4,7 +4,8 @@ var nomieLab = angular.
 		'angularMoment',
 		'gridshore.c3js.chart',
 		'nomieNotesController',
-		'nomieTrackersController'
+		'nomieTrackersController',
+		'leaflet-directive'
 	]);
 
 var _NomieEventDB, _NomieTrackerDB;

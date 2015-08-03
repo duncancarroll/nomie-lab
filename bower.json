@@ -21,6 +21,7 @@
     "angular-moment": "~0.10.2",
     "c3": "~0.4.10",
     "c3-angular": "~0.6.0",
-    "JsonQuery": "https://github.com/jiren/JsonQuery.git"
+    "JsonQuery": "https://github.com/jiren/JsonQuery.git",
+    "angular-leaflet-directive": "~0.8.6"
   }
 }

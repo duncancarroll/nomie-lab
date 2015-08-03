@@ -6797,7 +6797,8 @@ button.close {
   top: 50px;
   right: 0px;
   left: 0px;
-  bottom: 0px; }
+  bottom: 0px;
+  z-index: 1500; }
 
 .texter.strong, .texter.bold {
   font-weight: bold !important; }
